@@ -45,10 +45,10 @@ git clone https://github.com/jobetinfosec/ansible-centos7-bootstrap.git
 ```
 
 
-d) Switch to first role directory
+d) Switch to **first** role directory
 
 ```
-cd ansible-centos7-bootstrap/01.sudo_user
+cd ansible-centos7-bootstrap/sudo_user
 ```
 
 
@@ -66,7 +66,22 @@ f) Replace <TEMPORARY_ITEMS> with your own data:
 then save and close the file
 
 
-g) Check if you are able to ping remote server
+g) Open the defaults main.yml file
+
+```
+nano roles/basic/defaults/main.yml
+```
+
+h) Replace <TEMPORARY_ITEMS> with your own data:
+
+`<USER_NAME>`		replace <USER_NAME> with the name of sudo user<br />
+`<PASSWORD_HASH>`	replace it with the hash of sudo user's password (to create a password hash use mkpasswd --method=sha-512 command. If mkpasswd is not installed, install it with apt-get install whois<br />
+`<PUBLIC_KEY_NAME>`	replace it with your public key's name
+
+then save and close the file
+
+
+i) Check if you are able to ping remote server
 
 ```
 ansible -m ping all
@@ -75,18 +90,25 @@ ansible -m ping all
 You should receive a SUCCESS message
 
 
-h) Check if any error shows up
+j) Check if any error shows up
 
 ```
 ansible-playbook sudo_user.yml --check
 ```
 
 
-g) Launch installation
+k) Launch installation
 
 ```
 ansible-playbook sudo_user.yml
 ```
+
+l) Switch to **second** role directory
+
+```
+cd ansible-centos7-bootstrap/bootstrap
+```
+
 
 
 ## Licence
