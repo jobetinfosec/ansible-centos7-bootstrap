@@ -151,15 +151,15 @@ You should receive a SUCCESS message
 r) Check if any error shows up
 
 ```
-ansible-playbook sudo_user.yml --check
+ansible-playbook bootstrap.yml --check
 ```
 
 
 s) Launch installation
 
 ```
-ansible-playbook sudo_user.yml
-
+ansible-playbook bootstrap.yml
+```
 
 ## Licence
 
