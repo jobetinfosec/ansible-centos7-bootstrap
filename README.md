@@ -151,14 +151,14 @@ You should receive a SUCCESS message
 r) Check if any error shows up
 
 ```
-ansible-playbook bootstrap.yml --check
+ansible-playbook centos_bootstrap.yml --check
 ```
 
 
 s) Launch installation
 
 ```
-ansible-playbook bootstrap.yml
+ansible-playbook centos_bootstrap.yml
 ```
 
 ## Licence
