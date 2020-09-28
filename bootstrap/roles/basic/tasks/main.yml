@@ -1,0 +1,20 @@
+---
+
+# Set timezone and synchronize ntp daemon
+
+- name: Set timezone
+  timezone:
+    name: Europe/Rome
+
+- name: Install chrony
+  yum:
+    name: chrony
+    state: latest
+  notify: start chrony
+
+- name: Install tcpdump
+  yum:
+    name: tcpdump
+    state: latest
+
+

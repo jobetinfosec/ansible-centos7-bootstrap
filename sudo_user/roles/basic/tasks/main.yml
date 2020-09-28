@@ -1,0 +1,64 @@
+---
+# 1) System update
+- name: Upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+
+# 2) Install yum-utilities (to check server reboot)
+- name: Install yum utilities
+  yum:
+    name: yum-utils
+    state: latest
+
+# 3) Check if server needs to be rebooted
+- name: Check if reboot is required
+  shell: needs-restarting -r
+  failed_when: false
+  register: reboot_required
+  changed_when: false
+
+- name: Reboot value
+  debug:
+    msg: "Reboot value {{ reboot_required.rc }}."
+
+# If reboot_required.rc = 1 then reboot server
+- name: Reboot the server if required
+  shell: sleep 3; reboot
+  ignore_errors: true
+  changed_when: false
+  async: 1
+  poll: 0
+  when: reboot_required.rc == 1
+
+- name: Wait for server to come back after reboot
+  wait_for_connection:
+    timeout: 600
+    delay: 20
+  register: reboot_result
+  when: reboot_required.rc == 1
+
+- name: Reboot time
+  debug:
+    msg: "The system rebooted in {{ reboot_result.elapsed }} seconds."
+  when: reboot_required.rc == 1
+
+# 4) Create sudo admin, add ssh public key and set no password
+- name: Create users
+  user:
+    name: "{{ username }}"
+    password: "{{ password }}"
+    shell: /bin/bash
+    createhome: true
+    groups: wheel
+    append: yes
+
+- name: Add authorized keys
+  authorized_key:
+    user: "{{ username }}"
+    state: present
+    key: "{{ ssh_public_key }}"
+
+- name: Set no password for sudo user
+  lineinfile: "dest=/etc/sudoers line='{{ username }}    ALL=(ALL)    NOPASSWD: ALL'"
+

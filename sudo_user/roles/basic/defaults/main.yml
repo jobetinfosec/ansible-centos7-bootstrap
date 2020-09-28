@@ -1,0 +1,5 @@
+---
+username: <USER_NAME>
+# Encrypted password (use mkpasswd command to generate it. Check: https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module)
+password: "<PASSWORD_HASH>"
+ssh_public_key: "{{ lookup('file', '~/.ssh/<KEY_NAME>.pub') }}"

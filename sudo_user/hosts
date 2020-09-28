@@ -1,0 +1,7 @@
+[centos_servers]
+<SERVER_IP>
+
+[centos_servers:vars]
+ansible_port=22
+ansible_user=root
+ansible_private_key_file=~/.ssh/<PRIVATE_KEY_NAME>

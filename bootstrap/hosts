@@ -1,0 +1,7 @@
+[centos_servers]
+172.105.251.61
+
+[centos_servers:vars]
+ansible_port=22
+ansible_user=roberto
+ansible_sudo_pass=viasardegna5

@@ -1,0 +1,5 @@
+---
+username: mario
+# Encrypted password (use mkpasswd command to generate it. Check: https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module)
+password: "$6$fHX9aiHG8GNLv$VwymLO42ZL42sp7HL4WD5E72UpxIrcJJ8aBpdXz.5G6c4w7RyLkPodjNJhp30awW03dRzPux9q9ygI7U9IU9N/"
+ssh_public_key: "{{ lookup('file', '~/.ssh/linode_wpbastion.pub') }}"
