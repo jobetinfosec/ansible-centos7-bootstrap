@@ -5,6 +5,8 @@
 
 Initial setup of CentOS 7 server.
 
+## Roles
+
 **First role (sudo_user)**
 
 * System update
@@ -175,6 +177,6 @@ MIT licence
 
 ## Author Information
 
-Created by Roberto Jobet (wpsecurity.press).
+Created by Roberto Jobet (sysadmin@wpsecurity.press).
 
 Don't hesitate to open an Issue if you find any bug or have suggestions.
