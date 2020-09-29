@@ -12,9 +12,58 @@
     state: latest
   notify: start chrony
 
+# Install tcpdump to troubleshoot network traffic
+
 - name: Install tcpdump
   yum:
     name: tcpdump
     state: latest
 
+# Setup firewall rule for SSH custom port
+
+- name: Add custom ssh port
+  firewalld:
+    port: "{{ custom_ssh_port }}"/tcp
+    permanent: yes
+    state: enabled
+  notify: reload firewalld
+
+# SSH hardening
+
+- name: Change SSH port
+  lineinfile:
+    dest=/etc/ssh/sshd_config
+    regexp='^#Port\s'
+    line="Port "{{ custom_ssh_port }}""
+    state=present
+  notify: restart sshd
+
+- name: Disable listening on IPv6 address
+  lineinfile:
+    dest=/etc/ssh/sshd_config
+    regexp='^#AddressFamily'
+    line="AddressFamily inet"
+    state=present
+  notify: restart sshd
+
+- name: Disable remote root login
+  lineinfile: 
+    dest: /etc/ssh/sshd_config
+    regexp: '^#?PermitRootLogin' 
+    line: 'PermitRootLogin no'
+  notify: restart sshd
+
+- name: Disable empty password login
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#?PermitEmptyPasswords' 
+    line: 'PermitEmptyPasswords no'
+  notify: restart sshd
+
+- name: Disable password login
+  lineinfile: 
+    dest: /etc/ssh/sshd_config 
+    regexp: '^#?PasswordAuthentication '
+    line: 'PasswordAuthentication no'
+  notify: restart sshd
 
