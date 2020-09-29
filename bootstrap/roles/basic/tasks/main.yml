@@ -19,6 +19,13 @@
     name: tcpdump
     state: latest
 
+# Install glances for server monitoring
+
+- name: Install Glances
+  yum:
+    name: glances
+    state: latest
+
 # Setup firewall rule for SSH custom port
 
 - name: Add custom ssh port
